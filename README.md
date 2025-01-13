@@ -24,7 +24,7 @@ This little java utility parses the argument file (almost certainly should be pa
 
 Build with apache ant in the root dir of the project. It will generate a .jar file under `build/jar/ParseStylus.jar`.
 Place that .jar in an easily accessible location (I use $HOME/lib).
-Then copy the script from scripts/disable_stylus.sh
+Then copy the script from `scripts/disable_stylus.sh`
 I recommend setting a crontab root entry to run the script in the @boot section
 
 ## Authors
