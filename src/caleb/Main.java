@@ -10,6 +10,8 @@
 
 package caleb;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -42,10 +44,16 @@ public class Main {
 	int idx = -1;
         String input = "";
         String sysfsPath = "";
+	Scanner scanner = null;
 
-	// Grab input from stdin
-        Scanner scanner = new Scanner(System.in);
-
+	// Grab input from command line
+	File f = new File(args[0]);
+	try {
+	    scanner = new Scanner(f);
+	} catch (FileNotFoundException fnfe) {
+	    System.err.println("Error: file not found " + args[0]);
+	    return;
+	}
 	// Keep reading input lines until we find an entry, or we reach the end
         while (!done) {
             try {
@@ -78,7 +86,7 @@ public class Main {
                 done = true;
 
             } catch (IllegalStateException ise) {
-                System.err.print("Error: " + Arrays.toString(ise.getStackTrace()));
+                System.err.println("Error: " + Arrays.toString(ise.getStackTrace()));
                 return;
             }
         }
