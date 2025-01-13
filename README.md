@@ -4,9 +4,9 @@ A java utility designed to parse the contents of `/proc/bus/input/devices`, and 
 
 ## Description
 
-Under linux, my GPD Win Max 2 has a tendancy to emit phantom input events from the stylus device (even when there is no such device connected) when the screen is closed.
+Under linux, when the lid of my GPD Win Max 2 is closed, the stylus device has a tendancy to emit phantom input events (even when there is no stylus connected). Based on comments on the GPD Discord server, my laptop is not the only one with this behavior. I reached out to GPD support, but they seem to have no solution. So I decided to fix it myself.
 
-In order to suppress these stylus input events, I throw a value of 1 to the 'inhibited' entry under the i2c device.
+In order to suppress these stylus input events, I throw a value of 1 to the 'inhibited' entry under the stylus i2c device.
 
 Unfortunately, the path of that i2c device changes on every reboot.
 
