@@ -19,7 +19,10 @@ import java.util.Scanner;
 public class Main {
 
     // The i2c device for which to search
-    public static String sDevName = "GXTP7385:00 27C6:0113 Stylus";
+    //public static String sDevName = "GXTP7385:00 27C6:0113 Stylus";
+    public static String sDevName = "GXTP7385:00 27C6:0113";
+    // The prefix of the i2c device name
+    public static String sDevNamePfx = "N: Name=";
 
     // The prefix to the sysfs path of the stylus device
     public static String sSysfsPfx = "S: Sysfs=";
@@ -62,7 +65,10 @@ public class Main {
 		// look for the i2c device name. If it's a match, set 'found'
 		// and keep scanning
                 if (!foundDevice) {
-                    if ((idx = input.indexOf(sDevName)) != -1) {
+
+		    if (input.equals(sDevNamePfx + "\"" + sDevName + "\"")) {
+		    //if ((idx = input.indexOf(sDevName)) != -1) {
+                        
                         foundDevice = true;
                         continue;
                     }
