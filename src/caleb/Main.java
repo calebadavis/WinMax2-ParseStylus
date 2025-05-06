@@ -40,9 +40,6 @@ public class Main {
 	// Set when we encounter the correct i2c device 
         boolean foundDevice = false;
 
-	// Set when we encounter the sysfs path element of the device entry
-	boolean foundPath = false;
-
 	// locals:
 	int idx = -1;
         String input = "";
@@ -66,11 +63,16 @@ public class Main {
 		// and keep scanning
                 if (!foundDevice) {
 
-		    if (input.equals(sDevNamePfx + "\"" + sDevName + "\"")) {
+		    if (input.startsWith(sDevNamePfx + "\"" + sDevName)) {
+			String
+			    genericDevName = sDevNamePfx + "\"" + sDevName + "\"",
+			    stylusDevName = sDevNamePfx + "\"" + sDevName + " Stylus" + "\"";
 		    //if ((idx = input.indexOf(sDevName)) != -1) {
-                        
-                        foundDevice = true;
-                        continue;
+
+			if (input.equals(genericDevName) || input.equals(stylusDevName)) {
+			    foundDevice = true;
+			    continue;
+			}
                     }
                 } else {
 		    // If we're scanning, and we've already found the device,
@@ -79,11 +81,10 @@ public class Main {
                     if ((idx = input.indexOf(sSysfsPfx)) != -1) {
 
 			// Bingo, reaching this point means we found the stylus
-			// device name. We can spit it out to stdout and end
-			foundPath = true;
+			// device name. We can spit it out to stdout
                         sysfsPath = input.substring(idx + sSysfsPfx.length());
-                        System.out.print(sSysfsStart + sysfsPath);
-                        done = true;
+                        System.out.println(sSysfsStart + sysfsPath);
+			foundDevice = false;
                     }
                 }
             } catch (NoSuchElementException nse) {
